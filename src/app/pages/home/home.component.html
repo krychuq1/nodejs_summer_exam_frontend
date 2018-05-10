@@ -1,0 +1,54 @@
+<div class="home">
+  <div class="home--quest" *ngIf="!userService.user">
+    <h3>This is our super duper secure app :)</h3>
+    <p>Please <span class="action" routerLink="signup">Sign up</span> or
+      <span class="action" routerLink="login">login</span> to enjoy full functionality</p>
+  </div>
+  <button mat-button class="mat-raised-button  mat-primary"
+          routerLink="admin" *ngIf="userService.user && userService.user.role === 'admin'">Admin panel</button>
+
+  <!--if user logged and no tasks-->
+  <div class="home--quest" *ngIf="userService.user && taskService.tasks && taskService.tasks.length === 0 &&shareTaskSevice.tasks && shareTaskSevice.tasks.length === 0">
+    <h3>Seems like you don't have any tasks!</h3>
+    <p>Don't be shy and <span class="action" routerLink="create-task">create one</span>!</p>
+  </div>
+  <div class="task-holder" *ngIf="taskService.tasks && taskService.tasks.length >= 1 && userService.user || shareTaskSevice.tasks && shareTaskSevice.tasks.length >= 1&& userService.user ">
+    <div class="task-holder--header">
+      <h3>Dashboard:</h3>
+      <button mat-button class="mat-raised-button mat-primary" routerLink="create-task">Create task</button>
+    </div>
+    <mat-card class="example-card" *ngFor="let task of taskService.tasks">
+      <div class="card-header">
+        <div class="card-header--title" [innerHtml] = "task.title | safePipe">
+          {{task.title}}
+        </div>
+        <div [innerHtml] = "task.author | safePipe">{{task.author}}</div>
+      </div>
+      <mat-card-content>
+        <p [innerHtml] = "task.description | safePipe">
+          {{task.description}}
+        </p>
+      </mat-card-content>
+      <div class="icons">
+        <i class="material-icons" routerLink="update/{{task._id}}">mode_edit</i>
+        <i class="material-icons" (click)="deleteTask(task._id)">delete</i>
+        <i class="material-icons" (click)="shareTask(task)">share</i>
+      </div>
+    </mat-card>
+    <div class="task-holder" *ngIf="shareTaskSevice.tasks && shareTaskSevice.tasks.length >= 1">
+      <h3>Friends tasks:</h3>
+      <mat-card class="example-card" *ngFor="let task of shareTaskSevice.tasks">
+        <div class="card-header">
+          <div class="card-header--title " [innerHtml] = "task.title | safePipe">{{task.title}}
+          </div>
+          <div [innerHtml] = "task.author | safePipe">{{task.author}}</div>
+        </div>
+        <mat-card-content>
+          <p [innerHtml] = "task.description | safePipe">
+            {{task.description}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

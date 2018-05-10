@@ -1,6 +1,28 @@
 @import "../../../styles";
 
 .home{
+  //height: 100%;
+  display: flex;
+  border: 1px solid red;
+  &--chat{
+    min-width: 200px;
+    h1{
+      font-size: 1.8rem;
+      margin: 0 0 10px 0;
+    }
+    &--offline{
+
+      span{
+      }
+    }
+  }
+  &--holder{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    height: 100%;
+  }
   &--quest{
     text-align: center;
     padding-top: 80px;

@@ -12,9 +12,7 @@ export class HomeService {
   private testUrl = Config.nodeApi;
 
   constructor( private http: HttpClient, private push: ToastsManager,
-               private router:Router,private userService: UserService) {
-
-
+               private router: Router, private userService: UserService) {
 }
 
   reloadHomePage (token) {

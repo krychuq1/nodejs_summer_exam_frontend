@@ -38,6 +38,7 @@ import {AdminComponent} from "./pages/admin/admin.component";
 import {UsersService} from "./services/users.service";
 import {UpdateComponent} from "./pages/update/update.component";
 import { SafePipe } from './safe.pipe';
+import {ChatComponent} from './components/chat-window/chat.component';
 
 export class CustomOption extends ToastOptions {
   showCloseButton = true;
@@ -60,7 +61,8 @@ export class CustomOption extends ToastOptions {
     ProfileComponent,
     AdminComponent,
     SafePipe,
-    UpdateComponent
+    UpdateComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -3,12 +3,30 @@
 .home{
   //height: 100%;
   display: flex;
-  border: 1px solid red;
+  //border: 1px solid red;
   &--chat{
     min-width: 200px;
     h1{
       font-size: 1.8rem;
       margin: 0 0 10px 0;
+    }
+    &--online{
+      .user-holder{
+        display: flex;
+        padding-left: 10px;
+        align-items: center;
+        //justify-content: center;
+        .userName{
+          cursor: pointer;
+        }
+      }
+      .dot{
+        width: 7px;
+        height: 7px;
+        margin-right: 5px;
+        border-radius: 100%;
+        background-color: #36c92a;
+      }
     }
     &--offline{
 
@@ -20,7 +38,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    border: 1px solid;
+    //border: 1px solid;
     height: 100%;
   }
   &--quest{

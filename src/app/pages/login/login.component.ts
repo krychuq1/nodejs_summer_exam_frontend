@@ -14,7 +14,7 @@ export class LoginComponent {
 
   LoginService;
   message;
-  warningShow:boolean;
+  warningShow: boolean;
 
 
 
@@ -31,7 +31,7 @@ export class LoginComponent {
 
 
   login () {
-    this.warningShow=true;
+    this.warningShow = true;
     if (this.loginForm.controls.email.value && this.loginForm.controls.password.value) {
       this.message = this.LoginService.logUserIn(this.loginForm.controls.email.value,
         this.loginForm.controls.password.value).then(value => {

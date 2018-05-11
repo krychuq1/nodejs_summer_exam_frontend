@@ -3,6 +3,11 @@
     <div class="home--chat--online" *ngIf="userService.user">
       <h1>Chat:</h1>
       <span>Online users: </span>
+      <div *ngFor="let user of chatUsers" class="user-holder">
+        <div class="dot"></div>
+        <span class="userName" (click)="openChat(user)">{{user}}</span>
+      </div>
+      <!--{{chatUsers}}-->
     </div>
      <div class="home--chat--offline" *ngIf="!userService.user">
        <h1>Chat:</h1>
@@ -10,6 +15,9 @@
      </div>
 
   </div>
+  <chatWindow [user]="userToChat"
+              *ngIf="showChatWindow"
+              [socket]="socket"></chatWindow>
   <div class="home--holder">
     <div class="home--quest" *ngIf="!userService.user">
       <h3>This is our super duper secure app :)</h3>
@@ -19,11 +27,15 @@
     <button mat-button class="mat-raised-button  mat-primary"
             routerLink="admin" *ngIf="userService.user && userService.user.role === 'admin'">Admin panel</button>
     <!--if user logged and no tasks-->
+
+
     <div class="home--quest" *ngIf="userService.user && taskService.tasks && taskService.tasks.length === 0
   && shareTaskSevice.tasks && shareTaskSevice.tasks.length === 0">
       <h3>Seems like you don't have any tasks!</h3>
       <p>Don't be shy and <span class="action" routerLink="create-task">create one</span>!</p>
     </div>
+
+
     <div class="task-holder" *ngIf="taskService.tasks && taskService.tasks.length >= 1 && userService.user
   || shareTaskSevice.tasks && shareTaskSevice.tasks.length >= 1&& userService.user ">
       <div class="task-holder--header">

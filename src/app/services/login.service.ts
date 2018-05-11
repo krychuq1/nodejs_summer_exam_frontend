@@ -17,12 +17,15 @@ export class LoginService {
   }
 
   logUserIn (email, pass) {
+
     return new Promise((resolve, reject) =>{
       this.http
         .post(this.testUrl +'users/login', {email: email, password: pass}, )
         .subscribe(
           // Successful responses call the first callback.
           data => {
+            console.log('success login');
+
             var message = data['message'];
             resolve(message);
             if(data['success']) {
@@ -30,7 +33,7 @@ export class LoginService {
               let user = data['user'];
               Cookie.set('token', token );
               this.router.navigate(['']);
-              this.userService.setUser(data['user']);
+              // this.userService.setUser(data['user']);
               resolve(data['message']);
             }
           },

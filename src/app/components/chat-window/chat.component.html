@@ -1,0 +1,17 @@
+<div class="chat-window">
+  <div class="header">
+   <span>{{user}}</span>
+    <div>X</div>
+  </div>
+  <div class="body">
+      <div class="msg" *ngFor="let msg of history" [ngClass]="{'got': msg.sender === user}">{{msg.msg}}</div>
+  </div>
+  <div class="footer">
+    <form #chatForm="ngForm" (keydown)="sent($event, chatForm.form)">
+      <textarea
+        ngModel
+        name="chatMsg"></textarea>
+
+    </form>
+  </div>
+</div>

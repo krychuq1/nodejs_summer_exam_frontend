@@ -1,0 +1,40 @@
+@import "../../../styles";
+
+.chat-window{
+  //border: 1px solid red;
+  background-color: $light-grey;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  width: 300px;
+  .header{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    background-color: $green-color;
+  }
+  .body{
+    height: 240px;
+    .msg{
+      //border: 1px solid red;
+      text-align: right;
+      padding: 10px;
+      width: 200px;
+      margin: 5px 0 0 auto;
+      border-radius: 5px;
+      background-color: #6fbacf;
+      &.got{
+        margin: 5px auto 0 0;
+        background-color: #c3f0ea;
+
+      }
+    }
+  }
+  .footer{
+    textarea{
+      width: 100%;
+    }
+
+  }
+}

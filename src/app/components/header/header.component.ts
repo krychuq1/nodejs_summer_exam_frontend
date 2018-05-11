@@ -10,6 +10,7 @@ import {LoginService} from "../../services/login.service";
 })
 export class HeaderComponent {
   constructor(public userService: UserService, private loginService: LoginService) {
+    this.userService.doMagic();
 
   }
   logout(){

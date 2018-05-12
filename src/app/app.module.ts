@@ -39,6 +39,7 @@ import {UsersService} from "./services/users.service";
 import {UpdateComponent} from "./pages/update/update.component";
 import { SafePipe } from './safe.pipe';
 import {ChatComponent} from './components/chat-window/chat.component';
+import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 
 export class CustomOption extends ToastOptions {
   showCloseButton = true;
@@ -82,6 +83,7 @@ export class CustomOption extends ToastOptions {
     MatButtonModule,
     routing,
     MatDialogModule,
+    NgxAutoScrollModule
 
   ],
   providers: [HomeService, LoginService, SignupService, ForgotService, NewPasswordService,

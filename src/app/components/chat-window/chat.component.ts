@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
+import {NgxAutoScroll} from 'ngx-auto-scroll';
 
 
 
@@ -11,18 +12,20 @@ import {UserService} from '../../services/user.service';
 export class ChatComponent implements OnInit{
   @Input() user;
   @Input() socket;
-  public history: Array<any>;
+  @Input() history: Array<any>;
   public messages: Array<string>;
 
   constructor(public userService: UserService) {
 
   }
+  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
+
+  public forceScrollDown(): void {
+    this.ngxAutoScroll.forceScrollDown();
+  }
 
   ngOnInit(): void {
-    this.socket.on('history', history=>{
-      this.history = history;
-      console.log('hiosrty event get trigger ', history);
-  })
+
 
   }
   sent(event, form){

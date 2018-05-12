@@ -5,7 +5,12 @@
       <span>Online users: </span>
       <div *ngFor="let user of chatUsers" class="user-holder">
         <div class="dot"></div>
-        <span class="userName" (click)="openChat(user)">{{user}}</span>
+        <span class="userName" (click)="openChat(user.username)">{{user.username}} </span>
+        <div class="envelope-holder" *ngIf="user.unread > 0">
+          <img src="../../../assets/envelope.png" class="envelope">
+          <span>{{user.unread}}</span>
+        </div>
+
       </div>
       <!--{{chatUsers}}-->
     </div>
@@ -17,7 +22,8 @@
   </div>
   <chatWindow [user]="userToChat"
               *ngIf="showChatWindow"
-              [socket]="socket"></chatWindow>
+              [socket]="socket"
+              [history]="history"></chatWindow>
   <div class="home--holder">
     <div class="home--quest" *ngIf="!userService.user">
       <h3>This is our super duper secure app :)</h3>

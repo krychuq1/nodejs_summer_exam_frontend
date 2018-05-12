@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   user: User;
   homeService;
-  chatUsers: Array<string>;
+  chatUsers: Array<any>;
   showChatWindow: boolean;
   userToChat: any;
   public socket;
-
+  public history: Array<any>;
 
   constructor(public userService: UserService,
               public hoS: HomeService, public shareTaskSevice: ShareTaskService,
@@ -47,22 +47,27 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           this.chatUsers = [];
         }
-        // emit new user
-        // this.socket.emit('send message', 'yoyoyoyoyoy');
-        // this.socket.on('new message', (data) => {
-        //   console.log(data);
-        // });
-
-
     }});
     this.socket.on('users', users => {
-      this.chatUsers = users;
-       console.log(users);
+      console.log(users, " <--- users from server");
+      this.chatUsers = [];
+      for(let i = 0; i < users.length; i++){
+        console.log(users[i]);
+        this.chatUsers.push({username: users[i], unread: 0});
+      }
     });
     this.socket.on('receive', data => {
+      for(let i = 0; i < this.chatUsers.length; i ++){
+        if(this.chatUsers[i].username === data.sender){
+          this.chatUsers[i].unread ++;
+        }
+      }
       console.log('you receive msg', data);
     });
-
+    this.socket.on('history', history => {
+      this.history = history;
+      console.log('hiosrty event get trigger ', history);
+    })
 
   }
 

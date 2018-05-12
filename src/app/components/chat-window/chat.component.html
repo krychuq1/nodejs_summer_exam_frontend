@@ -3,8 +3,11 @@
    <span>{{user}}</span>
     <div>X</div>
   </div>
-  <div class="body">
-      <div class="msg" *ngFor="let msg of history" [ngClass]="{'got': msg.sender === user}">{{msg.msg}}</div>
+  <div class="body" ngx-auto-scroll>
+      <div class="msg" *ngFor="let msg of history"
+                      [ngClass]="{'got': msg.sender === user}">
+        <span *ngIf="msg.sender === user || msg.receiver === user">{{msg.msg}}</span>
+      </div>
   </div>
   <div class="footer">
     <form #chatForm="ngForm" (keydown)="sent($event, chatForm.form)">

@@ -31,6 +31,7 @@
     "ng-recaptcha": "^3.0.3",
     "ng2-cookies": "^1.0.12",
     "ng2-toastr": "^4.1.2",
+    "ngx-auto-scroll": "^1.1.0",
     "node-datetime": "^2.0.6",
     "node.date-time": "^1.2.2",
     "nodemailer": "^4.4.2",

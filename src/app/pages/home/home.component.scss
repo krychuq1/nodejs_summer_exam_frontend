@@ -6,6 +6,7 @@
   //border: 1px solid red;
   &--chat{
     min-width: 200px;
+
     h1{
       font-size: 1.8rem;
       margin: 0 0 10px 0;
@@ -19,6 +20,16 @@
         .userName{
           cursor: pointer;
         }
+        .envelope-holder{
+          margin-left: 5px;
+          .envelope{
+            height: 20px;
+          }
+          span{
+            color: red;
+          }
+        }
+
       }
       .dot{
         width: 7px;

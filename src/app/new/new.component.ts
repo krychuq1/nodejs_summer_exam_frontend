@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {NewPasswordService} from "./new-password.service";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {FormGroup, FormControl} from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,8 +13,8 @@ export class NewComponent implements OnInit {
 
   private newPasswor;
 
-  constructor(private route: ActivatedRoute,newPasswor:NewPasswordService,public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+  constructor(private route: ActivatedRoute, newPasswor: NewPasswordService, vcr: ViewContainerRef) {
+    // this.toastr.setRootViewContainerRef(vcr);
     this.newPasswor = newPasswor;
 
 
@@ -34,7 +33,7 @@ export class NewComponent implements OnInit {
 
     }
     else{
-      this.toastr.error('The passwords do not match');
+      // this.toastr.error('The passwords do not match');
     }
 
 

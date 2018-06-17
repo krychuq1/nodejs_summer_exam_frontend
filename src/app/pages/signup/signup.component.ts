@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+// import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {SignupService} from "./signup.service";
 import {User} from "../../model/User";
 @Component({
@@ -24,10 +24,10 @@ export class SignupComponent implements OnInit {
   public imgError;
   public img_url;
 
-  constructor(signUp : SignupService, public toastr: ToastsManager,
+  constructor(signUp : SignupService,
               vcr: ViewContainerRef, private formBuilder : FormBuilder) {
     this.SignUpS = signUp;
-    this.toastr.setRootViewContainerRef(vcr);
+    // this.toastr.setRootViewContainerRef(vcr);
     this.buildForm();
   }
   public onUploadFinished(event) {
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
       if (this.signupForm.controls.companyName.value && this.signupForm.controls.email.value && this.signupForm.controls.password.value) {
         this.SignUpS.signUserIn(this.user,this.captcha);
       } else {
-        this.toastr.error('Fill all the fields');
+        // this.toastr.error('Fill all the fields');
       }
 
     }else{

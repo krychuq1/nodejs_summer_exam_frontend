@@ -1,5 +1,5 @@
 let config = {
-  // nodeApi: 'https://frontend.sevenamstudio.com/'
+  // nodeApi: 'https://nodejs-summer-exam.herokuapp.com/'
   nodeApi: 'http://localhost:3000/'
 /*  compress: true,
   disableHostCheck: true*/

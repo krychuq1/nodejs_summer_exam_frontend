@@ -1,27 +1,20 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import {async} from "rxjs/scheduler/async";
-import {LoginService} from "../../services/login.service";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {LoginService} from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent {
-
-  LoginService;
-  message;
+  message: string;
   warningShow: boolean;
 
-
-
-  constructor( lg : LoginService, public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.LoginService = lg;
-    this.toastr.setRootViewContainerRef(vcr);
-    this.warningShow = true;
+  constructor(private loginService: LoginService, private toastr: ToastrService) {
+    this.warningShow = false;
   }
 
   loginForm = new FormGroup ({
@@ -31,25 +24,26 @@ export class LoginComponent {
 
 
   login () {
-    this.warningShow = true;
-    if (this.loginForm.controls.email.value && this.loginForm.controls.password.value) {
-      this.message = this.LoginService.logUserIn(this.loginForm.controls.email.value,
-        this.loginForm.controls.password.value).then(value => {
-          if(value=='Enjoy your token!'){
-            this.warningShow=true;
-          }
-          this.message=value;
-          this.warningShow=false;
+    const password = this.loginForm.controls.password.value;
+    const email = this.loginForm.controls.email.value;
+    // check if form is valid
+    if (email && password) {
+     this.loginService.logUserIn(email, password).then(value => {
+       this.toastr.success('Successful login');
 
-      }).catch(error => {
+      }, error => {
+       this.toastr.error('Email or password is incorrect');
 
-        this.message=error.error;
-        this.warningShow=false;
+       console.log('error ', error);
+     }).catch(error => {
+
+        this.message = error.error;
+        this.warningShow = true;
 
       });
 
     } else {
-      this.toastr.error("Fill all the fields");
+      this.toastr.error('Fill all the fields');
     }
   }
 

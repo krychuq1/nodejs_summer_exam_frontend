@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+// import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Router} from "@angular/router";
 import Config from "../../../../app-config";
 
@@ -8,7 +8,7 @@ import Config from "../../../../app-config";
 export class SignupService {
 
   private testUrl = Config.nodeApi;
-  constructor( private http: HttpClient, private push: ToastsManager, private router:Router) {}
+  constructor( private http: HttpClient, private router:Router) {}
 
   signUserIn (User,captcha) {
 
@@ -24,7 +24,7 @@ export class SignupService {
         },
         // Errors will call this callback instead:
         err => {
-          this.push.error('Something went wrong');
+          // this.push.error('Something went wrong');
         }
       );}
     saveImage(img) {

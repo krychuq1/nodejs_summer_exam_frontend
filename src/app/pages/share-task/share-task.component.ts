@@ -4,7 +4,7 @@ import {TaskService} from "../../services/task.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ShareTaskService} from "../../services/shareTask.service";
 import {Board} from "../../model/board";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+// import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 
 @Component({
@@ -20,8 +20,8 @@ export class ShareTaskComponent{
   constructor(private route: ActivatedRoute,
               public taskService:TaskService,
               public shareTaskService:ShareTaskService,
-              public toastr: ToastsManager, vcr: ViewContainerRef){
-    this.toastr.setRootViewContainerRef(vcr);
+              vcr: ViewContainerRef){
+    // this.toastr.setRootViewContainerRef(vcr);
 
     this.shareTaskForm = new FormGroup({
       email: new FormControl()
@@ -30,7 +30,7 @@ export class ShareTaskComponent{
 
   shareTask(){
     this.board  = new Board(this.shareTaskForm.controls.email.value,this.taskService.getTask(),false,);
-    this.shareTaskService.shareTaskWith(this.board);
+    // this.shareTaskService.shareTaskWith(this.board);
   }
 
 }

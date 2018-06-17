@@ -17,8 +17,7 @@
       <div class="form-group">
         <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
       </div>
-      <div class="alert" [hidden]="warningShow">
-        {{message}}   </div>
+      <div class="alert" *ngIf="warningShow">{{message}}</div>
     </form>
     <p class="small">Don't have an account yet? Sign up <a routerLink="/signup">here</a></p>
     <p class="small">Forgot password <a routerLink="/forgot">here</a></p>

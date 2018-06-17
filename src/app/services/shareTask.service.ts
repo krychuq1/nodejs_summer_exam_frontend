@@ -3,7 +3,6 @@ import {Injectable, OnInit, ViewContainerRef} from "@angular/core";
 import Config from "../../../app-config";
 import {Board} from "../model/board";
 import {Task} from "../model/task";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Router} from "@angular/router";
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
@@ -16,7 +15,7 @@ export class ShareTaskService{
   public tasks: Task[];
   private task:String;
 
-  constructor( private http: HttpClient, private push: ToastsManager, private router:Router) {
+  constructor( private http: HttpClient, private router:Router) {
     this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
     this.getFriendsTasks();
     }
@@ -30,7 +29,6 @@ export class ShareTaskService{
           .subscribe(
             // Successful responses call the first callback.
             data => {
-              this.push.success('Task successfully shared!');
               setTimeout(()=>this.router.navigate(['']),1000);
             },
             error => { // Error

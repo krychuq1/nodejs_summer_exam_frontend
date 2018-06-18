@@ -13,14 +13,20 @@ export class LoginComponent {
   message: string;
   warningShow: boolean;
 
-  constructor(private loginService: LoginService, private toastr: ToastrService) {
-    this.warningShow = false;
-  }
-
   loginForm = new FormGroup ({
     email: new FormControl(),
     password: new FormControl()
   });
+
+  constructor(private loginService: LoginService, private toastr: ToastrService) {
+    this.warningShow = false;
+    // insert test value
+    this.loginForm.controls.email.setValue('kry@kry.com');
+    this.loginForm.controls.password.setValue('Master1');
+
+  }
+
+
 
 
   login () {

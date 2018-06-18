@@ -9,7 +9,7 @@ export class UserService {
   public userEmitter: EventEmitter<User> = new EventEmitter();
   private backend = Config.nodeApi;
   private headers = new HttpHeaders();
-
+  public token: string;
   user: User;
 
   constructor( private http: HttpClient) {
@@ -17,6 +17,7 @@ export class UserService {
 
   getUserBasedToken(token: string) {
     const url = this.backend;
+    this.token = token;
     this.headers = this.headers.set('x-access-token', token);
     this.http.post(url, {}, {headers: this.headers}).subscribe((user) => {
       const tempUser = user as User;
@@ -24,11 +25,13 @@ export class UserService {
       this.userEmitter.emit(this.user);
     });
   }
-  public setUser(user) {
+  public setUser(user, token?: string) {
     if (user) {
       this.user = new User(user.companyName, user.email, user.password, user.image, user.role);
+      this.token = token;
     } else {
       this.user = user;
+      this.token = null;
     }
     this.userEmitter.emit(this.user);
   }

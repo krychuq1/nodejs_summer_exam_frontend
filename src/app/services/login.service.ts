@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
 import Config from '../../../app-config';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Injectable()
@@ -24,10 +23,11 @@ export class LoginService {
             const message = data['message'];
             if (data['success']) {
               const token = data['token'];
-              // let user = data['user'];
+              this.router.navigate(['']);
+
               this.localStorage.setItem('token', data['token']).subscribe((val) => {
-                this.userService.setUser(data['user']);
-                this.router.navigate(['']);
+
+                this.userService.setUser(data['user'], data['token']);
                 resolve(data['message']);
               });
             }
@@ -41,9 +41,10 @@ export class LoginService {
   }
 
   logout() {
-    Cookie.delete('token');
-    // this.router.navigate(['login']);
-    this.userService.setUser(null);
+    this.localStorage.removeItem('token').subscribe((val) => {
+      this.userService.setUser(null);
+      this.push.success('logout completed');
+    });
   }
 
 }

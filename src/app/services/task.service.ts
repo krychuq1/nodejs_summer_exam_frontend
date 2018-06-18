@@ -1,65 +1,64 @@
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Injectable, OnInit} from "@angular/core";
-import Config from "../../../app-config";
-import {Task} from "../model/task";
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import Config from '../../../app-config';
+import {Task} from '../model/task';
+import {LocalStorage} from '@ngx-pwa/local-storage';
 
 @Injectable()
-export class TaskService{
+export class TaskService {
 
   private url = Config.nodeApi + 'tasks';
   private headers = new HttpHeaders();
   public tasks: Task[];
-  private task:String;
-  private token = Cookie.get("token");
+  private task: String;
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient, protected localStorage: LocalStorage) {
     this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
-    this.getTasks();
-
   }
   getTasks(): void {
-
-    let token = this.token;
-    if(token){
-      this.getTasksForUser(token).subscribe((res: Task[])=>{
-        this.tasks = res['tasks'];
-      },error =>{
-
-      } );
-    }
+    // console.log('getting tasks ');
+    this.localStorage.getItem('token').subscribe(token => {
+      console.log(token);
+        this.getTasksForUser(token).subscribe((res: Task[]) => {
+          this.tasks = res['tasks'];
+          console.log(this.tasks);
+        },error => {
+          console.log(error);
+        });
+    });
   }
-  getById(id){
-    this.headers = this.headers.set('X-Access-Token', this.token);
+  getById(id, token: string) {
+    this.headers = this.headers.set('X-Access-Token', token);
     return this.http.get(this.url + '/' + id, {headers: this.headers});
 
   }
-  createEvent(task: Task){
-    this.headers = this.headers.set('X-Access-Token', this.token);
+  createEvent(task: Task, token: string) {
+    this.headers = this.headers.set('X-Access-Token', token);
    return this.http.post(this.url, task, {headers: this.headers});
   }
-  getTasksForUser(token){
-    let url = this.url + '/user';
-    this.headers = this.headers.set('X-Access-Token', this.token);
+  getTasksForUser(token: string) {
+    const url = this.url + '/user';
+    this.headers = this.headers.set('X-Access-Token', token);
+    console.log(this.headers);
     return this.http.get(url, {headers: this.headers});
   }
-  deleteTask(taskId){
+  deleteTask(taskId, token: string){
     let url = this.url + '/' + taskId;
 
-    this.headers = this.headers.set('X-Access-Token', this.token);
+    this.headers = this.headers.set('X-Access-Token', token);
     return this.http.delete(url,{headers: this.headers});
   }
 
-  setTask(t){
-    this.task=t;
+  setTask(t) {
+    this.task = t;
 
   }
-  updateTask(task){
-    this.headers = this.headers.set('X-Access-Token', this.token);
+  updateTask(task, token: string) {
+    this.headers = this.headers.set('X-Access-Token', token);
     return this.http.put(this.url + '/' + task._id, task,{headers: this.headers});
 
   }
-  getTask():String{
+  getTask(): String {
     return this.task;
   }
 

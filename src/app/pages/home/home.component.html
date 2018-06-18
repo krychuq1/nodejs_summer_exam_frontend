@@ -32,7 +32,6 @@
     </div>
     <button mat-button class="mat-raised-button  mat-primary"
             routerLink="admin" *ngIf="userService.user && userService.user.role === 'admin'">Admin panel</button>
-    <!--if user logged and no tasks-->
 
 
     <div class="home--quest" *ngIf="userService.user && taskService.tasks && taskService.tasks.length === 0

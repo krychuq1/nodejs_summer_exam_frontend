@@ -6,6 +6,7 @@
   //border: 1px solid red;
   &--chat{
     min-width: 200px;
+    position: absolute;
 
     h1{
       font-size: 1.8rem;
@@ -64,6 +65,7 @@
     max-width: 500px;
     margin: 0 auto;
     padding-top: 50px;
+    width: 300px;
     &--header{
       display: flex;
       align-items: center;

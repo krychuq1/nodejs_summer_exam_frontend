@@ -8,19 +8,19 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 
 @Injectable()
-export class ShareTaskService{
+export class ShareTaskService {
 
-  private testUrl = Config.nodeApi+'shareTask/';
+  private testUrl = Config.nodeApi + 'shareTask/';
   private headers = new HttpHeaders();
   public tasks: Task[];
-  private task:String;
+  private task: String;
 
-  constructor( private http: HttpClient, private router:Router) {
+  constructor( private http: HttpClient, private router: Router) {
     this.headers = this.headers.set('Content-Type', 'application/json; charset=utf-8');
-    this.getFriendsTasks();
+
     }
 
-  shareTaskWith(board:Board){
+  shareTaskWith(board: Board) {
     this.headers = this.headers.set('X-Access-Token', Cookie.get("token"));
 
       return new Promise((resolve, reject) =>{
@@ -38,15 +38,12 @@ export class ShareTaskService{
       })
     }
 
-  getFriendsTasks(): void {
-    let token = Cookie.get("token");
-    if(token){
-      this.getTasksForUser(token).subscribe((res: Task[])=>{
+  getFriendsTasks(token: string): void {
+      this.getTasksForUser(token).subscribe((res: Task[]) => {
         this.tasks = res['tasks'];
       },error =>{
 
       } );
-    }
   }
   getTasksForUser(token){
     let url = this.testUrl + 'requests';

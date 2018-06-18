@@ -1,12 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import {routing} from '../Routing';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-
 import {
   MatFormFieldModule, MatListModule,
   MatInputModule, MatCardModule, MatButtonModule,
@@ -17,10 +15,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from './auth-guard';
 import { SignupComponent } from './pages/signup/signup.component';
 import {SignupService} from './pages/signup/signup.service';
-import { ForgotComponent } from './forgot/forgot.component';
-import {ForgotService} from './forgot/forgot.service';
-import { NewComponent } from './new/new.component';
-import {NewPasswordService} from './new/new-password.service';
+import { ForgotComponent } from './pages/forgot/forgot.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import {HeaderComponent} from './components/header/header.component';
 import {LoginService} from './services/login.service';
@@ -38,6 +33,9 @@ import { SafePipe } from './safe.pipe';
 import {ChatComponent} from './components/chat-window/chat.component';
 import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 import {ToastrModule} from 'ngx-toastr';
+import {ResetPasswordComponent} from './pages/reset-password/reset-password';
+import {ResetPasswordService} from './services/reset-password.service';
+import {ForgotService} from './services/forgot.service';
 
 
 
@@ -48,7 +46,7 @@ import {ToastrModule} from 'ngx-toastr';
     HomeComponent,
     SignupComponent,
     ForgotComponent,
-    NewComponent,
+    ResetPasswordComponent,
     HeaderComponent,
     CreateTaskComponent,
     ShareTaskComponent,
@@ -78,7 +76,7 @@ import {ToastrModule} from 'ngx-toastr';
     NgxAutoScrollModule
 
   ],
-  providers: [LoginService, SignupService, ForgotService, NewPasswordService,
+  providers: [LoginService, SignupService, ForgotService, ResetPasswordService,
     AuthGuard, UserService, TaskService, ShareTaskService, UsersService],
   bootstrap: [AppComponent]
 })

@@ -3,13 +3,13 @@ import {LoginComponent} from './app/pages/login/login.component';
 import {AuthGuard} from './app/auth-guard';
 import {HomeComponent} from './app/pages/home/home.component';
 import {SignupComponent} from './app/pages/signup/signup.component';
-import {ForgotComponent} from './app/forgot/forgot.component';
-import {NewComponent} from './app/new/new.component';
+import {ForgotComponent} from './app/pages/forgot/forgot.component';
 import {CreateTaskComponent} from './app/pages/create-task/create-task.component';
 import {ShareTaskComponent} from './app/pages/share-task/share-task.component';
 import {ProfileComponent} from './app/pages/profile/profile.component';
 import {AdminComponent} from './app/pages/admin/admin.component';
 import {UpdateComponent} from './app/pages/update/update.component';
+import {ResetPasswordComponent} from './app/pages/reset-password/reset-password';
 
 const appRoutes: Routes = [
 
@@ -18,15 +18,14 @@ const appRoutes: Routes = [
   { path: '' , component: HomeComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'forgot', component: ForgotComponent },
-  { path: 'reset/:token', component: NewComponent },
+  { path: 'reset/:token', component: ResetPasswordComponent},
   {path: 'create-task', canActivate: [AuthGuard], component: CreateTaskComponent},
   {path: 'share-task/:id', canActivate: [AuthGuard], component: ShareTaskComponent},
   {path: 'admin', canActivate: [AuthGuard], component: AdminComponent},
   {path: 'update/:id', canActivate: [AuthGuard], component: UpdateComponent}
 
-
-  // { path: '',  redirectTo: '/login', pathMatch: 'full'},
-  //todo look at it
+   // reset/:token
+  // todo look at it
   // canActivate:[AuthGuard]
 
 ];

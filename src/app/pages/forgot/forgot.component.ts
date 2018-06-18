@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {ForgotService} from "./forgot.service";
+import {FormControl, FormGroup} from '@angular/forms';
+import {ForgotService} from '../../services/forgot.service';
 
 @Component({
   selector: 'app-forgot',
@@ -11,7 +11,7 @@ export class ForgotComponent implements OnInit {
 
   private forgotService;
 
-  constructor(forgotService: ForgotService, public vcr: ViewContainerRef) {
+  constructor(forgotService: ForgotService) {
     this.forgotService = forgotService;
 
   }
@@ -19,7 +19,7 @@ export class ForgotComponent implements OnInit {
 
   retypeEmailFrom = new FormGroup ({
     email: new FormControl(),
-  })
+  });
 
 
 

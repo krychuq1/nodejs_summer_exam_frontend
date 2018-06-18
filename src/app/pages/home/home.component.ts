@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     userService.userEmitter.subscribe({next: (user) => {
         if (user) {
           this.taskService.getTasks();
-          this.shareTaskSevice.getFriendsTasks(this.token);
+          this.shareTaskSevice.getFriendsTasks(this.userService.token);
         }
       }});
   }
@@ -91,13 +91,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (token) {
         this.token = token;
         this.taskService.getTasks();
+        console.log(this.token, "<---- token");
         this.shareTaskSevice.getFriendsTasks(this.token);
       }
     });
     setTimeout(() => {
       // userService.user && taskService.tasks && taskService.tasks.length === 0
       // && shareTaskSevice.tasks && shareTaskSevice.tasks.length === 0"
-      console.log(this.userService.user, this.taskService.tasks);
+      console.log(this.userService.user, this.taskService.tasks, this.shareTaskSevice.tasks);
     }, 2000);
   }
 

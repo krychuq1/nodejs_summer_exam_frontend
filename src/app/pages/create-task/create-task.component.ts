@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Task} from '../../model/task';
-import {TaskService} from "../../services/task.service";
-import {Processing} from "../../model/proccessing";
+import {TaskService} from '../../services/task.service';
+import {Processing} from '../../model/proccessing';
+import {LocalStorage} from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'create-task',
@@ -11,19 +12,20 @@ import {Processing} from "../../model/proccessing";
 })
 
 export class CreateTaskComponent{
-  task : Task;
+  task: Task;
   taskForm: FormGroup;
   titleControl;
   descriptionControl;
   authorControl;
   processing: Processing;
 
-  constructor(private formBuilder : FormBuilder, private taskService: TaskService) {
+  constructor(private formBuilder: FormBuilder, private taskService: TaskService,
+              protected localStorage: LocalStorage) {
     this.buildForm();
     this.processing = new Processing(false, false, false);
   }
 
-  private buildForm(){
+  private buildForm() {
     this.taskForm = this.formBuilder.group({
       title  : this.formBuilder.control(null,
         [Validators.required, Validators.minLength(3)]),
@@ -38,16 +40,20 @@ export class CreateTaskComponent{
     this.authorControl = this.taskForm.get('author');
   }
 
-  public onSubmitForm(){
+  public onSubmitForm() {
     this.processing.isProcessing = true;
     this.task = new Task(this.titleControl.value, this.descriptionControl.value,
       this.authorControl.value);
-    this.taskService.createEvent(this.task).subscribe((res)=>{
-      this.processing.isCompleted = true;
-      this.processing.isProcessing = false;
-    }, error => {
-      this.processing.isProcessing = false;
-      this.processing.isError = true;
-    });
+      this.localStorage.getItem('token').subscribe(token => {
+        console.log('Create-task has this token: ', token);
+        this.taskService.createEvent(this.task, token).subscribe((res) => {
+          this.processing.isCompleted = true;
+          this.processing.isProcessing = false;
+        }, error => {
+          this.processing.isProcessing = false;
+          this.processing.isError = true;
+        });
+      });
+
   }
 }

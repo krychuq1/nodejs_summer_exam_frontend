@@ -1,0 +1,42 @@
+.chat{
+  min-width: 200px;
+  position: absolute;
+
+  h1{
+    font-size: 1.8rem;
+    margin: 0 0 10px 0;
+  }
+  &--online{
+    .user-holder{
+      display: flex;
+      padding-left: 10px;
+      align-items: center;
+      //justify-content: center;
+      .userName{
+        cursor: pointer;
+      }
+      .envelope-holder{
+        margin-left: 5px;
+        .envelope{
+          height: 20px;
+        }
+        span{
+          color: red;
+        }
+      }
+
+    }
+    .dot{
+      width: 7px;
+      height: 7px;
+      margin-right: 5px;
+      border-radius: 100%;
+      background-color: #36c92a;
+    }
+  }
+  &--offline{
+
+    span{
+    }
+  }
+}

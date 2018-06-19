@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   public emailController;
   public passwordController;
   public companyNameController;
+  public phoneNumberController;
   public signupForm: FormGroup;
   private EMAIL_PATTERN = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
   private PASS_PATTERN = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
@@ -24,10 +25,8 @@ export class SignupComponent implements OnInit {
   public imgError;
   public img_url;
 
-  constructor(signUp : SignupService,
-              vcr: ViewContainerRef, private formBuilder : FormBuilder) {
+  constructor(signUp: SignupService) {
     this.SignUpS = signUp;
-    // this.toastr.setRootViewContainerRef(vcr);
     this.buildForm();
   }
   public onUploadFinished(event) {
@@ -40,7 +39,7 @@ export class SignupComponent implements OnInit {
       console.log(err);
     });
   }
-  public buildForm(){
+  public buildForm() {
     this.signupForm = new FormGroup ({
       companyName: new FormControl('', [
         Validators.required,
@@ -52,6 +51,10 @@ export class SignupComponent implements OnInit {
         Validators.minLength(6),
         Validators.pattern(this.EMAIL_PATTERN)
       ]),
+      phone: new FormControl('',[
+        Validators.required,
+        Validators.minLength(6),
+      ]),
       password: new FormControl('',[
         Validators.required,
         Validators.minLength(6),
@@ -61,11 +64,11 @@ export class SignupComponent implements OnInit {
     this.emailController = this.signupForm.get('email');
     this.passwordController = this.signupForm.get('password');
     this.companyNameController = this.signupForm.get('companyName');
-
+    this.phoneNumberController = this.signupForm.get('phone');
   }
   signup () {
-    if(this.img){
-      this.user={
+    if(this.img) {
+      this.user = {
         companyName: this.signupForm.controls.companyName.value,
         email: this.signupForm.controls.email.value,
         password: this.signupForm.controls.password.value,
@@ -73,7 +76,8 @@ export class SignupComponent implements OnInit {
         role: 'user'
       };
       if (this.signupForm.controls.companyName.value && this.signupForm.controls.email.value && this.signupForm.controls.password.value) {
-        this.SignUpS.signUserIn(this.user,this.captcha);
+        console.log('we are here');
+        this.SignUpS.signUserIn(this.user, this.captcha, this.signupForm.controls.phone.value);
       } else {
         // this.toastr.error('Fill all the fields');
       }
@@ -90,7 +94,7 @@ export class SignupComponent implements OnInit {
   }
   public onRemoved() {
     this.img = null;
-    this.imgError = ''
+    this.imgError = '';
   }
 
 }

@@ -45,6 +45,7 @@ export class CreateTaskComponent{
     this.task = new Task(this.titleControl.value, this.descriptionControl.value,
       this.authorControl.value);
       this.localStorage.getItem('token').subscribe(token => {
+        console.log('Create-task has this token: ', token);
         this.taskService.createEvent(this.task, token).subscribe((res) => {
           this.processing.isCompleted = true;
           this.processing.isProcessing = false;

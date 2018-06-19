@@ -52,10 +52,9 @@ export class UpdateComponent {
     this.taskService.getById(id, this.token).subscribe(res => {
       this.task = res;
       this.setValues();
-    })
+    });
   }
   setValues() {
-    // console.log(this.task);
     this.titleControl.patchValue(this.task.title);
     this.descriptionControl.patchValue(this.task.description);
     this.authorControl.patchValue(this.task.author);
@@ -66,12 +65,14 @@ export class UpdateComponent {
     this.task.title = this.titleControl.value;
     this.task.description = this.descriptionControl.value;
     this.task.author = this.authorControl.value;
-    this.taskService.updateTask(this.task, this.token).subscribe(res => {
-      this.processing.isCompleted = true;
-      this.processing.isProcessing = false;
-    }, err => {
-      this.processing.isProcessing = false;
-      this.processing.isError = true;
+    this.localStorage.getItem('token').subscribe(token => {
+      this.taskService.updateTask(this.task, token).subscribe(res => {
+        this.processing.isCompleted = true;
+        this.processing.isProcessing = false;
+      }, err => {
+        this.processing.isProcessing = false;
+        this.processing.isError = true;
+      });
     });
   }
 

@@ -20,6 +20,8 @@ export class ChatSideComponent implements OnDestroy {
     // Emit new user if we have one
     userService.userEmitter.subscribe({next: (data) => {
         if (data) {
+          console.log('Token value is: ', this.userService.token);
+
           this.socket.emit('new user', this.userService.user.companyName);
         } else {
           this.chatUsers = [];

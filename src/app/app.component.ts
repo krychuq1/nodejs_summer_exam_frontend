@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from './services/user.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+import {LocalStorage} from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-root',

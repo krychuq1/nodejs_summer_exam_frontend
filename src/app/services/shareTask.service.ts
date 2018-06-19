@@ -48,7 +48,6 @@ export class ShareTaskService {
   }
   getTasksForUser(token) {
     const url = this.testUrl + 'requests';
-    console.log(token);
     this.headers = this.headers.set('X-Access-Token', token);
     return this.http.get(url, {headers: this.headers});
   }

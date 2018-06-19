@@ -1,0 +1,25 @@
+<div class="chat">
+  <div class="chat--online" *ngIf="userService.user">
+    <h1>Chat:</h1>
+    <span>Online users: </span>
+    <div *ngFor="let user of chatUsers" class="user-holder">
+      <div class="dot"></div>
+      <span class="userName" (click)="openChat(user.username)">{{user.username}} </span>
+      <div class="envelope-holder" *ngIf="user.unread > 0">
+        <img src="../../../assets/envelope.png" class="envelope">
+        <span>{{user.unread}}</span>
+      </div>
+
+    </div>
+    <!--{{chatUsers}}-->
+  </div>
+  <div class="chat--offline" *ngIf="!userService.user">
+    <h1>Chat:</h1>
+    <span>Please login to enjoy chat</span>
+  </div>
+
+</div>
+<chatWindow [user]="userToChat"
+            *ngIf="showChatWindow"
+            [socket]="socket"
+            [history]="history"></chatWindow>

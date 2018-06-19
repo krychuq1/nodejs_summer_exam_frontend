@@ -36,6 +36,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {ResetPasswordComponent} from './pages/reset-password/reset-password';
 import {ResetPasswordService} from './services/reset-password.service';
 import {ForgotService} from './services/forgot.service';
+import {ChatSideComponent} from './components/chat-side/chat-side';
 
 
 
@@ -54,7 +55,8 @@ import {ForgotService} from './services/forgot.service';
     AdminComponent,
     SafePipe,
     UpdateComponent,
-    ChatComponent
+    ChatComponent,
+    ChatSideComponent
   ],
   imports: [
     BrowserModule,

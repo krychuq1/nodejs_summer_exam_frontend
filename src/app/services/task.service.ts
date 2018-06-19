@@ -18,12 +18,9 @@ export class TaskService {
   getTasks(): void {
     // console.log('getting tasks ');
     this.localStorage.getItem('token').subscribe(token => {
-      console.log(token);
         this.getTasksForUser(token).subscribe((res: Task[]) => {
           this.tasks = res['tasks'];
-          console.log(this.tasks);
         },error => {
-          console.log(error);
         });
     });
   }
@@ -39,7 +36,6 @@ export class TaskService {
   getTasksForUser(token: string) {
     const url = this.url + '/user';
     this.headers = this.headers.set('X-Access-Token', token);
-    console.log(this.headers);
     return this.http.get(url, {headers: this.headers});
   }
   deleteTask(taskId, token: string){

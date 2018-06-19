@@ -13,47 +13,13 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
   user: User;
-  homeService;
-  chatUsers: Array<any>;
-  showChatWindow: boolean;
-  userToChat: any;
   token: string;
-
-  public socket;
-  public history: Array<any>;
 
   constructor(public userService: UserService, public shareTaskSevice: ShareTaskService,
               public taskService: TaskService, public router: Router, protected localStorage: LocalStorage) {
-
-
-    // CHAT CHAT CAHT START ----------------
-    this.chatUsers = [];
-    this.showChatWindow = false;
-    // connect to socket io
-    this.socket = io.connect(Config.nodeApi);
-
-    // when user is logged
-    this.socket.on('users', users => {
-      this.chatUsers = [];
-      for(let i = 0; i < users.length; i++){
-        console.log(users[i]);
-        this.chatUsers.push({username: users[i], unread: 0});
-      }
-    });
-    this.socket.on('receive', data => {
-      for(let i = 0; i < this.chatUsers.length; i ++){
-        if(this.chatUsers[i].username === data.sender){
-          this.chatUsers[i].unread ++;
-        }
-      }
-      console.log('you receive msg', data);
-    });
-    this.socket.on('history', history => {
-      this.history = history;
-    });
     userService.userEmitter.subscribe({next: (user) => {
         if (user) {
           this.taskService.getTasks();
@@ -70,11 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     });
   }
-  openChat(username) {
-    this.userToChat = username;
-    this.showChatWindow = !this.showChatWindow;
-    console.log('you are going to open chat for ', username);
-  }
+
 
   updateTask(task) {
   }
@@ -85,13 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('on init');
     // get token form ls
     this.localStorage.getItem('token').subscribe(token => {
       if (token) {
         this.token = token;
         this.taskService.getTasks();
-        console.log(this.token, "<---- token");
         this.shareTaskSevice.getFriendsTasks(this.token);
       }
     });
@@ -102,8 +62,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  ngOnDestroy() {
-      this.socket.disconnect();
-      console.log('home destroy');
-  }
+
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+// import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {SignupService} from "./signup.service";
 import {User} from "../../model/User";
 @Component({
@@ -17,17 +17,17 @@ export class SignupComponent implements OnInit {
   public passwordController;
   public companyNameController;
   public signupForm: FormGroup;
-  private EMAIL_PATTERN = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+  private EMAIL_PATTERN = /^[a-zA-Z]+[a-zA-Z0-9._+]+[]+@[a-zA-Z]+\.[a-z.]{2,5}$/;
   private PASS_PATTERN = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
   private COMPANY_PATTERN = /^[a-zA-Z0-9]{2,}$/;
   public img;
   public imgError;
   public img_url;
 
-  constructor(signUp : SignupService, public toastr: ToastsManager,
+  constructor(signUp : SignupService,
               vcr: ViewContainerRef, private formBuilder : FormBuilder) {
     this.SignUpS = signUp;
-    this.toastr.setRootViewContainerRef(vcr);
+    // this.toastr.setRootViewContainerRef(vcr);
     this.buildForm();
   }
   public onUploadFinished(event) {
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
       if (this.signupForm.controls.companyName.value && this.signupForm.controls.email.value && this.signupForm.controls.password.value) {
         this.SignUpS.signUserIn(this.user,this.captcha);
       } else {
-        this.toastr.error('Fill all the fields');
+        // this.toastr.error('Fill all the fields');
       }
 
     }else{

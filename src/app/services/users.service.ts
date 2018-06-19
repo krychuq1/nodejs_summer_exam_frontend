@@ -11,9 +11,9 @@ export class UsersService {
 
   constructor( private http: HttpClient) {
   }
-  getUsers(){
+  getUsers(token){
     let testUrl = this.testUrl + 'users';
-    this.headers = this.headers.set('X-Access-Token', this.token);
+    this.headers = this.headers.set('X-Access-Token', token);
     return this.http.get(testUrl, {headers: this.headers});
 
   }

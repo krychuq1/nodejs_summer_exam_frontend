@@ -1,39 +1,11 @@
 <div class="home">
-  <div class="home--chat">
-    <div class="home--chat--online" *ngIf="userService.user">
-      <h1>Chat:</h1>
-      <span>Online users: </span>
-      <div *ngFor="let user of chatUsers" class="user-holder">
-        <div class="dot"></div>
-        <span class="userName" (click)="openChat(user.username)">{{user.username}} </span>
-        <div class="envelope-holder" *ngIf="user.unread > 0">
-          <img src="../../../assets/envelope.png" class="envelope">
-          <span>{{user.unread}}</span>
-        </div>
-
-      </div>
-      <!--{{chatUsers}}-->
-    </div>
-     <div class="home--chat--offline" *ngIf="!userService.user">
-       <h1>Chat:</h1>
-       <span>Please login to enjoy chat</span>
-     </div>
-
-  </div>
-  <chatWindow [user]="userToChat"
-              *ngIf="showChatWindow"
-              [socket]="socket"
-              [history]="history"></chatWindow>
+ <chat-side></chat-side>
   <div class="home--holder">
     <div class="home--quest" *ngIf="!userService.user">
-      <h3>This is our super duper secure app :)</h3>
+      <h3>Welcome to your little Trello</h3>
       <p>Please <span class="action" routerLink="signup">Sign up</span> or
         <span class="action" routerLink="login">login</span> to enjoy full functionality</p>
     </div>
-    <button mat-button class="mat-raised-button  mat-primary"
-            routerLink="admin" *ngIf="userService.user && userService.user.role === 'admin'">Admin panel</button>
-    <!--if user logged and no tasks-->
-
 
     <div class="home--quest" *ngIf="userService.user && taskService.tasks && taskService.tasks.length === 0
   && shareTaskSevice.tasks && shareTaskSevice.tasks.length === 0">
@@ -82,6 +54,13 @@
         </mat-card>
       </div>
     </div>
+
+    <div class="admin-button">
+      <button mat-button class="mat-raised-button  mat-primary"
+              routerLink="admin" *ngIf="userService.user && userService.user.role === 'admin'">Admin panel</button>
+    </div>
+
+
   </div>
 
 </div>
